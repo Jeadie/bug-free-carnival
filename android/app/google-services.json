@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "867894218296",
+    "firebase_url": "https://hearthelper-af.firebaseio.com",
+    "project_id": "hearthelper-af",
+    "storage_bucket": "hearthelper-af.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:867894218296:android:3ce54d8d8ade4ced",
+        "android_client_info": {
+          "package_name": "com.ampedforce.heartfailurehelper"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "867894218296-rncuer6qipqr7rglmj8qq6li5u3pltea.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC_O9PdmdKHJPRs8Fzje9WjcF9Li32bVlg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
