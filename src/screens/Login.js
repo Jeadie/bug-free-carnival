@@ -1,14 +1,18 @@
 import React from 'react';
-import { StyleSheet, Text, View, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, Button } from 'react-native';
 
 export default class Login extends React.Component {
+
+  static navigationOptions = {
+    title: 'Login'
+  }
 
   render() {
     return (
       <ScrollView>
         <View style={styles.container}>
           <Text style={styles.welcome}>
-            Welcome to {'\n'} React Native Firebase
+            <Button title="Login" onPress={() => this.props.navigation.navigate('app')} />
           </Text>
         </View>
       </ScrollView>

@@ -1,5 +1,6 @@
 import React from 'react';
-import Login from './screens/Login';
+import Navigator from './Navigator';
+
 
 export default class App extends React.Component {
   constructor() {
@@ -16,8 +17,10 @@ export default class App extends React.Component {
 
   render() {
     return (
-      /* We need to replace this with react-navigation stuff */
-      <Login/>
+      <Navigator />
     );
   }
 }
+
+
+
