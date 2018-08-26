@@ -7,9 +7,9 @@ import NumericInput from '../components/NumericInput';
 export default class RecordFluid extends React.Component {
 
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
-      value: 50,
+      value: 30,
       loading: false,
     }
   }
@@ -19,97 +19,65 @@ export default class RecordFluid extends React.Component {
     headerBackTitle: 'Record',
   }
 
-  onInputChange(value) {
-    if (!this.state.loading) {
-      console.log(value);
+  /* Updates the current fluid intake value (shared between buttons, slider, input) */
+  updateFluidInput(value) {
+    if (!this.state.loading)
       this.setState({value: value});
-    }
   }
 
   onSubmitPress() {
     this.setState({loading: true});
-  }
-
-  onValueButtonPress(value) {
-    this.setState({value: value});
+    /* TODO: Firebase storage */
   }
 
   render() {
     return (
-      <View style={{flex: 3, justifyContent: 'center', borderWidth: 1, borderColor: 'red'}}>
-        <View style={styles.inputContainerStyles}>
-          <Slider style={styles.sliderStyles}
+      <View style={styles.containerStyle}>
+        <View style={styles.inputContainerStyle}>
+          <Slider style={styles.sliderStyle}
             minimumTrackTintColor={'#f22'}
             maximumValue={2000}
             value={this.state.value}
             step={1}
-            onValueChange={this.onInputChange.bind(this)}
+            onValueChange={this.updateFluidInput.bind(this)}
           />
-          <NumericInput style={styles.fluidInputStyles}
-            onChange={this.onInputChange.bind(this)}
+          <NumericInput style={styles.fluidInputStyle}
+            onChange={this.updateFluidInput.bind(this)}
             value={this.state.value}
             minValue={0}
             maxValue={2000}
             maxLength={4}
           />
-          <Text style={styles.fluidLabelStyles}>ml.</Text>
+          <Text style={styles.textStyle}>ml.</Text>
         </View>
-        <View style={{ flexDirection: 'row', justifyContent: 'center', margin: 30 }}>
+        <View style={styles.commonContainerStyle}>
           <Button
             title={'30ml'}
-            textStyle={{ fontWeight: 'bold', fontSize: 16, color: '#e22' }}
-            buttonStyle={{
-              backgroundColor: 'white',
-              borderWidth: 1,
-              borderColor: '#999',
-              width: 75,
-              height: 75,
-              borderRadius: 40
-            }}
+            textStyle={{ color: '#e22' }}
+            buttonStyle={styles.commonButtonStyle}
             containerViewStyle={{width: 75, height: 75}}
-            onPress={() => this.onValueButtonPress(30)}
+            onPress={() => this.updateFluidInput(30)}
           />
           <Button
             title={'250ml'}
-
-            textStyle={{ fontWeight: 'bold', fontSize: 16, color: '#da2' }}
-            buttonStyle={{
-              backgroundColor: 'white',
-              borderWidth: 1,
-              borderColor: '#999',
-              width: 75,
-              height: 75,
-              borderRadius: 40
-            }}
+            textStyle={{ color: '#da2' }}
+            buttonStyle={styles.commonButtonStyle}
             containerViewStyle={{width: 75, height: 75}}
-            onPress={() => this.onValueButtonPress(250)}
+            onPress={() => this.updateFluidInput(250)}
           />
           <Button
             title={'500ml'}
-            textStyle={{ fontWeight: 'bold', fontSize: 16, color: '#2a2' }}
-            buttonStyle={{
-              backgroundColor: 'white',
-              borderWidth: 1,
-              borderColor: '#999',
-              width: 75,
-              height: 75,
-              borderRadius: 40
-            }}
-            containerViewStyle={{width: 75, height: 75}}
-            onPress={() => this.onValueButtonPress(500)}
+            textStyle={{ color: '#2a2' }}
+            buttonStyle={styles.commonButtonStyle}
+            containerViewStyle={{ width: 75, height: 75 }}
+            onPress={() => this.updateFluidInput(500)}
           />
         </View>
-        <View style={{ flex: 1, alignSelf: 'center'}}>
+        <View>
           <Button
             title={this.state.loading ? '' : 'Record Intake'}
-
             textStyle={{ fontWeight: 'bold', fontSize: 20 }}
-            buttonStyle={{
-              backgroundColor: '#f22',
-              width: 300,
-              height: 45,
-              borderRadius: 4
-            }}
+            buttonStyle={styles.submitButtonStyle}
             loading={this.state.loading}
             onPress={this.onSubmitPress.bind(this)}
           />
@@ -120,29 +88,53 @@ export default class RecordFluid extends React.Component {
 }
 
 const styles = {
-  inputContainerStyles: {
-    marginLeft: 25,
-    marginRight: 25,
-    marginTop: 40,
+
+  containerStyle: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'center',
     alignItems: 'center',
-    flexDirection: 'row',
+    marginLeft: 30,
+    marginRight: 30,
   },
 
-  sliderStyles: {
+  inputContainerStyle: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+
+  sliderStyle: {
     flex: 7,
   },
 
-  fluidInputStyles: {
+  fluidInputStyle: {
     flex: 2,
-    textAlign: 'center',
-    color: '#a90',
-    fontWeight: 'bold',
     fontSize: 18,
+    fontWeight: 'bold',
+    color: '#a90',
+    textAlign: 'center',
   },
 
-  fluidLabelStyles: {
-    flex: 1,
-    fontWeight: 'bold',
-    fontSize: 16
+  commonContainerStyle: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    margin: 30
+  },
+
+  commonButtonStyle: {
+    backgroundColor: 'white',
+    borderWidth: 1,
+    borderColor: '#999',
+    width: 75,
+    height: 75,
+    borderRadius: 40
+  },
+
+  submitButtonStyle: {
+    backgroundColor: '#f22',
+    width: 300,
+    height: 45,
+    borderRadius: 4,
   }
+
 }
