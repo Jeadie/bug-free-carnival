@@ -2,6 +2,7 @@ import React from 'react';
 import { Button } from 'react-native-elements';
 import { View, Text, Slider } from 'react-native';
 import NumericInput from '../components/NumericInput';
+import firebase  from 'react-native-firebase';
 
 
 export default class RecordFluid extends React.Component {
@@ -26,9 +27,24 @@ export default class RecordFluid extends React.Component {
   }
 
   onSubmitPress() {
-    this.setState({loading: true});
-    /* TODO: Firebase storage */
+    this.setState({loading: true, err: ''});
+
+    const date = new Date();
+    const { uid } = firebase.auth().currentUser;
+    const doc = firebase.firestore().collection('users').doc(uid).collection('fluidIntake').doc();
+
+    doc.set({
+      date: date.toDateString(),
+      time: date.toTimeString(),
+      intake: this.state.value
+    }).then(() => {
+      this.setState({ err: '' });
+      this.props.navigation.navigate('Home'); /* TODO: Link to stats page as in wireframe */
+    }).catch(() => {
+      this.setState({err: 'Failed to add record', loading: false});
+    });
   }
+
 
   render() {
     return (
@@ -74,6 +90,7 @@ export default class RecordFluid extends React.Component {
           />
         </View>
         <View>
+          <Text style={styles.errorTextStyle}>{this.state.err}</Text>
           <Button
             title={this.state.loading ? '' : 'Record Intake'}
             textStyle={{ fontWeight: 'bold', fontSize: 20 }}
@@ -135,6 +152,14 @@ const styles = {
     width: 300,
     height: 45,
     borderRadius: 4,
+  },
+
+  errorTextStyle: {
+    alignSelf: 'center',
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: 'red',
+    padding: 10
   }
 
 }
