@@ -43,6 +43,7 @@ export default class NumericInput extends React.Component {
           onChangeText={this.onTextChange.bind(this)}
           onKeyPress={this.onKeyPress.bind(this)}
           keyboardType={'numeric'}
+          autoCorrect={false}
           maxLength={maxLength}
 
         />
