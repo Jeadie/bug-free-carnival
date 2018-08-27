@@ -7,9 +7,9 @@ export default class AuthLoading extends React.Component {
   componentWillMount() {
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
-        this.props.navigation.navigate('auth');
+        this.props.navigation.navigate('app');
       } else {
-        this.props.navigation.navigate('home');
+        this.props.navigation.navigate('auth');
       }
     });
   }
